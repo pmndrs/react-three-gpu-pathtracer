@@ -15,10 +15,7 @@ const identity = {
   scale: new THREE.Vector3(0, 0, 0),
   rotation: new THREE.Euler(0, 0, 0),
 }
-export function API(): {
-  api: PathtracerAPI
-  quad: FullScreenQuad
-} {
+export function API(): PathtracerAPI {
   const camera = useThree((s) => s.camera)
   const scene = useThree((s) => s.scene)
   const gl = useThree((s) => s.gl)
@@ -41,58 +38,55 @@ export function API(): {
   }, [])
 
   return {
-    api: {
-      render: (samples: number = 3, paused: boolean = false) => {
-        camera.updateMatrixWorld()
+    render: (samples: number = 3, paused: boolean = false) => {
+      camera.updateMatrixWorld()
 
-        if (!paused || ptRenderer.samples < 1) {
-          for (let i = 0; i < samples; i++) {
-            ptRenderer.update()
-          }
+      if (!paused || ptRenderer.samples < 1) {
+        for (let i = 0; i < samples; i++) {
+          ptRenderer.update()
         }
+      }
 
-        gl.autoClear = false
-        fsQuad.render(gl)
-        gl.autoClear = true
-      },
-      clear: () => {
-        ptRenderer.reset()
-      },
-      refit: () => {
-        console.warn('TODO')
-      },
-      update: () => {
-        ptRenderer.reset()
-        scene.traverse((obj) => {
-          if (
-            !obj.position.equals(identity.position) ||
-            !obj.rotation.equals(identity.rotation) ||
-            !obj.scale.equals(identity.scale)
-          ) {
-            obj.updateMatrixWorld()
-          }
-        })
-
-        const { bvh, textures, materials } = generator.generate(scene)
-        const geometry = bvh.geometry
-        const ptMaterial = ptRenderer.material
-
-        // update bvh and geometry attribute textures
-        ptMaterial.bvh.updateFrom(bvh)
-        ptMaterial.normalAttribute.updateFrom(geometry.attributes.normal)
-        ptMaterial.tangentAttribute.updateFrom(geometry.attributes.tangent)
-        ptMaterial.uvAttribute.updateFrom(geometry.attributes.uv)
-
-        // update materials and texture arrays
-        ptMaterial.materialIndexAttribute.updateFrom(geometry.attributes.materialIndex)
-        ptMaterial.textures.setTextures(gl, 2048, 2048, textures)
-        ptMaterial.materials.updateFrom(materials, textures)
-
-        ptRenderer.material.setDefine('MATERIAL_LENGTH', materials.length)
-        ptRenderer.__initialized = true
-      },
-      renderer: ptRenderer,
+      gl.autoClear = false
+      fsQuad.render(gl)
+      gl.autoClear = true
     },
-    quad: fsQuad,
+    clear: () => {
+      ptRenderer.reset()
+    },
+    refit: () => {
+      console.warn('TODO')
+    },
+    update: () => {
+      ptRenderer.reset()
+      scene.traverse((obj) => {
+        if (
+          !obj.position.equals(identity.position) ||
+          !obj.rotation.equals(identity.rotation) ||
+          !obj.scale.equals(identity.scale)
+        ) {
+          obj.updateMatrixWorld()
+        }
+      })
+
+      const { bvh, textures, materials } = generator.generate(scene)
+      const geometry = bvh.geometry
+      const ptMaterial = ptRenderer.material
+
+      // update bvh and geometry attribute textures
+      ptMaterial.bvh.updateFrom(bvh)
+      ptMaterial.normalAttribute.updateFrom(geometry.attributes.normal)
+      ptMaterial.tangentAttribute.updateFrom(geometry.attributes.tangent)
+      ptMaterial.uvAttribute.updateFrom(geometry.attributes.uv)
+
+      // update materials and texture arrays
+      ptMaterial.materialIndexAttribute.updateFrom(geometry.attributes.materialIndex)
+      ptMaterial.textures.setTextures(gl, 2048, 2048, textures)
+      ptMaterial.materials.updateFrom(materials, textures)
+
+      ptRenderer.material.setDefine('MATERIAL_LENGTH', materials.length)
+      ptRenderer.__initialized = true
+    },
+    renderer: ptRenderer,
   }
 }

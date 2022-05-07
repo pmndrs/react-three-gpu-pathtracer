@@ -22,7 +22,7 @@ export function Pathtracer({
   background = {},
   children,
 }: React.PropsWithChildren<PathtracerProps>) {
-  const { api } = API()
+  const api = API()
   const bg: Partial<PathtracerBackground> = {
     // @ts-ignore
     type: 'Environment',
