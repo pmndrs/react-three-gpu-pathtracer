@@ -10,14 +10,14 @@ export default function useBackground(api: PathtracerAPI, background: Partial<Pa
   const backgroundEnv = background.type === 'Environment' ? background : undefined
   const backgroundGrad = background.type === 'Gradient' ? background : undefined
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     ptRenderer.material.environmentBlur = backgroundEnv?.blur
   }, [backgroundEnv?.blur])
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     ptRenderer.material.environmentIntensity = backgroundEnv?.intensity
   }, [backgroundEnv?.intensity])
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     ptRenderer.reset()
     ptRenderer.material.setDefine('GRADIENT_BG', Number(background.type === 'Gradient'))
     if (background.type !== 'Environment') {
@@ -25,16 +25,16 @@ export default function useBackground(api: PathtracerAPI, background: Partial<Pa
     }
   }, [background.type])
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     ptRenderer.reset()
     ptRenderer.material.uniforms.bgGradientTop.value.set(new THREE.Color(backgroundGrad?.top))
   }, [backgroundGrad?.top])
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     ptRenderer.reset()
     ptRenderer.material.uniforms.bgGradientBottom.value.set(new THREE.Color(backgroundGrad?.bottom))
   }, [backgroundGrad?.bottom])
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (scene.environment) {
       const pmremGenerator = new THREE.PMREMGenerator(gl)
       pmremGenerator.compileCubemapShader()

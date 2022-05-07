@@ -10,14 +10,17 @@ export interface PathtracerProps {
   bounces: number
   paused: boolean
   enabled: boolean
+  renderPriority: number
 
   resolutionScale: number
   background: Partial<PathtracerBackground>
 }
 
 export interface PathtracerAPI {
-  update: () => void
-  reset: () => void
+  update: () => void // Re-build and re-upload BVH
+  refit: () => void // Re-fit (NOT Re-build) BVH
+  clear: () => void // Need to clear textures when camera changes
+  render: (samples: number, paused: boolean) => void
   renderer: PathTracingRenderer
 }
 

@@ -12,16 +12,17 @@ export function Pathtracer({
   samples = 1,
   tiles = 1,
   bounces = 3,
+  renderPriority = 1,
 
   // Controls
-  disable = false,
+  enabled = true,
   paused = false,
 
   resolutionScale = 0.5,
   background = {},
   children,
 }: React.PropsWithChildren<PathtracerProps>) {
-  const { api, quad } = API()
+  const { api } = API()
   const bg: Partial<PathtracerBackground> = {
     // @ts-ignore
     type: 'Environment',
@@ -36,11 +37,11 @@ export function Pathtracer({
   useBackground(api, bg)
   useRendererOptions(api, bounces, tiles)
 
-  React.useEffect(() => {
-    api.update()
-  }, [])
+  // React.useLayoutEffect(() => {
+  //   api.update()
+  // }, [])
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const w = size.width
     const h = size.height
     const scale = resolutionScale
@@ -50,21 +51,14 @@ export function Pathtracer({
     api.renderer.target.setSize(w * scale * dpr, h * scale * dpr)
   }, [viewport, size, resolutionScale])
 
-  useFrame(({ gl, camera }) => {
-    if (api.renderer.__initialized) {
-      camera.updateMatrixWorld()
-
-      if (!paused || api.renderer.samples < 1) {
-        for (let i = 0; i < samples; i++) {
-          api.renderer.update()
-        }
+  useFrame(
+    () => {
+      if (api.renderer.__initialized && enabled) {
+        api.render(samples, paused)
       }
-
-      gl.autoClear = false
-      quad.render(gl)
-      gl.autoClear = true
-    }
-  }, 1)
+    },
+    enabled ? renderPriority : 0
+  )
 
   return <context.Provider value={api}>{children}</context.Provider>
 }

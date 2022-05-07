@@ -1,13 +1,14 @@
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, Sphere } from '@react-three/drei'
 import { Pathtracer, usePathtracer } from '@react-three/gpu-pathtracer'
-import { Suspense, useLayoutEffect, useRef } from 'react'
+import { Suspense, useEffect, useLayoutEffect, useRef } from 'react'
 import { OrbitControls } from '@react-three/drei'
 import { Box } from '@react-three/drei'
 
 function Thing() {
-  const { reset, update } = usePathtracer()
+  const { clear, update, render } = usePathtracer()
   const ref = useRef()
+  const advance = useThree((s) => s.advance)
 
   useFrame(() => {
     ref.current.rotation.y += 0.01
@@ -19,7 +20,7 @@ function Thing() {
 
   return (
     <>
-      <OrbitControls onChange={() => reset()} />
+      <OrbitControls onChange={() => clear()} />
       <Box ref={ref}>
         <meshPhysicalMaterial />
       </Box>

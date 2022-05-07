@@ -42,8 +42,24 @@ export function API(): {
 
   return {
     api: {
-      reset: () => {
+      render: (samples: number = 3, paused: boolean = false) => {
+        camera.updateMatrixWorld()
+
+        if (!paused || ptRenderer.samples < 1) {
+          for (let i = 0; i < samples; i++) {
+            ptRenderer.update()
+          }
+        }
+
+        gl.autoClear = false
+        fsQuad.render(gl)
+        gl.autoClear = true
+      },
+      clear: () => {
         ptRenderer.reset()
+      },
+      refit: () => {
+        console.warn('TODO')
       },
       update: () => {
         ptRenderer.reset()

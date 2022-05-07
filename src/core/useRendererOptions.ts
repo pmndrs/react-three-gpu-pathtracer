@@ -8,7 +8,7 @@ export default function useRendererOptions(
   bounces: PathtracerProps['bounces'],
   tiles: PathtracerProps['tiles']
 ) {
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const t =
       tiles instanceof THREE.Vector2
         ? tiles
@@ -19,7 +19,7 @@ export default function useRendererOptions(
     api.renderer.tiles.copy(t)
   }, [tiles])
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     api.renderer.material.bounces = bounces
   }, [bounces])
 }
