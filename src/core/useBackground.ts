@@ -7,32 +7,27 @@ export default function useBackground(api: PathtracerAPI, background: Partial<Pa
   const scene = useThree((s) => s.scene)
   const gl = useThree((s) => s.gl)
   const ptRenderer = api.renderer
-  const backgroundEnv = background.type === 'Environment' ? background : undefined
-  const backgroundGrad = background.type === 'Gradient' ? background : undefined
 
   React.useLayoutEffect(() => {
-    ptRenderer.material.environmentBlur = backgroundEnv?.blur
-  }, [backgroundEnv?.blur])
+    ptRenderer.material.environmentBlur = background.blur
+  }, [background.blur])
   React.useLayoutEffect(() => {
-    ptRenderer.material.environmentIntensity = backgroundEnv?.intensity
-  }, [backgroundEnv?.intensity])
+    ptRenderer.material.environmentIntensity = background.intensity
+  }, [background.intensity])
 
   React.useLayoutEffect(() => {
     ptRenderer.reset()
     ptRenderer.material.setDefine('GRADIENT_BG', Number(background.type === 'Gradient'))
-    if (background.type !== 'Environment') {
-      ptRenderer.material.environmentMap = null
-    }
   }, [background.type])
 
   React.useLayoutEffect(() => {
     ptRenderer.reset()
-    ptRenderer.material.uniforms.bgGradientTop.value.set(new THREE.Color(backgroundGrad?.top))
-  }, [backgroundGrad?.top])
+    ptRenderer.material.uniforms.bgGradientTop.value.set(new THREE.Color(background.top))
+  }, [background.top])
   React.useLayoutEffect(() => {
     ptRenderer.reset()
-    ptRenderer.material.uniforms.bgGradientBottom.value.set(new THREE.Color(backgroundGrad?.bottom))
-  }, [backgroundGrad?.bottom])
+    ptRenderer.material.uniforms.bgGradientBottom.value.set(new THREE.Color(background.bottom))
+  }, [background.bottom])
 
   React.useLayoutEffect(() => {
     if (scene.environment) {
@@ -42,5 +37,5 @@ export default function useBackground(api: PathtracerAPI, background: Partial<Pa
       const envMap = pmremGenerator.fromEquirectangular(scene.environment)
       api.renderer.material.environmentMap = envMap.texture
     }
-  }, [scene.environment, background])
+  }, [scene.environment])
 }

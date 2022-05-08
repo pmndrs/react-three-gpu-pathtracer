@@ -5,15 +5,17 @@
   "dependencies": {
     "@react-three/drei": "^9.7.1",
     "@react-three/fiber": "^8.0.13",
+    "@react-three/gpu-pathtracer": "link:../../dist",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "leva": "^0.9.25",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "three": "^0.140.0",
-    "web-vitals": "^2.1.0",
-    "@react-three/gpu-pathtracer": "link:../../dist"
+    "three-custom-shader-material": "^3.3.5",
+    "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

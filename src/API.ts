@@ -4,17 +4,13 @@ import { useThree } from '@react-three/fiber'
 import {
   PathTracingRenderer,
   PhysicalPathTracingMaterial,
+  DynamicPathTracingSceneGenerator,
   PathTracingSceneGenerator,
   // @ts-ignore
 } from 'three-gpu-pathtracer'
 import { FullScreenQuad } from 'three/examples/jsm/postprocessing/Pass'
 import { PathtracerAPI } from './types'
 
-const identity = {
-  position: new THREE.Vector3(0, 0, 0),
-  scale: new THREE.Vector3(0, 0, 0),
-  rotation: new THREE.Euler(0, 0, 0),
-}
 export function API(): PathtracerAPI {
   const camera = useThree((s) => s.camera)
   const scene = useThree((s) => s.scene)
@@ -23,9 +19,17 @@ export function API(): PathtracerAPI {
   const { ptRenderer, generator, fsQuad } = React.useMemo(() => {
     const ptMaterial = new PhysicalPathTracingMaterial()
     const ptRenderer = new PathTracingRenderer(gl)
-    const generator = new PathTracingSceneGenerator()
+    const generator = new PathTracingSceneGenerator(scene)
     ptRenderer.camera = camera
     ptRenderer.material = ptMaterial
+
+    ptRenderer.__r3fState = {
+      initialized: false,
+      frame: {
+        count: 0,
+        delta: 0,
+      },
+    }
 
     const fsQuad = new FullScreenQuad(
       new THREE.MeshBasicMaterial({
@@ -59,15 +63,7 @@ export function API(): PathtracerAPI {
     },
     update: () => {
       ptRenderer.reset()
-      scene.traverse((obj) => {
-        if (
-          !obj.position.equals(identity.position) ||
-          !obj.rotation.equals(identity.rotation) ||
-          !obj.scale.equals(identity.scale)
-        ) {
-          obj.updateMatrixWorld()
-        }
-      })
+      scene.updateMatrixWorld()
 
       const { bvh, textures, materials } = generator.generate(scene)
       const geometry = bvh.geometry
@@ -85,7 +81,7 @@ export function API(): PathtracerAPI {
       ptMaterial.materials.updateFrom(materials, textures)
 
       ptRenderer.material.setDefine('MATERIAL_LENGTH', materials.length)
-      ptRenderer.__initialized = true
+      ptRenderer.__r3fState.initialized = true
     },
     renderer: ptRenderer,
   }

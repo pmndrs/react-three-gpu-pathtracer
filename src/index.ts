@@ -1,1 +1,1 @@
-export { Pathtracer, usePathtracer } from './Pathtracer'
+export * from './Pathtracer'

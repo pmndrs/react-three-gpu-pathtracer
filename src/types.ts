@@ -1,3 +1,4 @@
+import { RootState } from '@react-three/fiber'
 import {
   PathTracingRenderer,
   // @ts-ignore
@@ -20,18 +21,23 @@ export interface PathtracerAPI {
   update: () => void // Re-build and re-upload BVH
   refit: () => void // Re-fit (NOT Re-build) BVH
   clear: () => void // Need to clear textures when camera changes
-  render: (samples: number, paused: boolean) => void
+  render: (samples?: number, paused?: boolean) => void
   renderer: PathTracingRenderer
 }
 
-export type PathtracerBackground =
-  | {
-      type: 'Environment'
-      blur: number
-      intensity: number
-    }
-  | {
-      type: 'Gradient'
-      top: THREE.ColorRepresentation
-      bottom: THREE.ColorRepresentation
-    }
+export interface PathtracerBackground {
+  type: 'Environment' | 'Gradient'
+  blur: number
+  intensity: number
+  top: THREE.ColorRepresentation
+  bottom: THREE.ColorRepresentation
+}
+
+export interface usePathtracedFramesProps {
+  samples: number
+  frames: number
+  enabled: boolean
+  onFrame: (rootState: RootState, renderer: PathTracingRenderer) => void
+  onEnd: (rootState: RootState, renderer: PathTracingRenderer) => void
+  onStart: (rootState: RootState, renderer: PathTracingRenderer) => void
+}
