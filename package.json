@@ -74,7 +74,6 @@
     "json": "^11.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-merge-refs": "^1.1.0",
     "rollup": "^2.70.2",
     "rollup-plugin-size-snapshot": "^0.12.0",
     "rollup-plugin-terser": "^7.0.2",
@@ -82,9 +81,6 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "canvas-capture": "^2.0.1",
-    "canvas-record": "^3.1.0",
-    "ccapture.js": "^1.1.0",
     "three-gpu-pathtracer": "^0.0.2"
   },
   "peerDependencies": {

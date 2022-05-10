@@ -37,7 +37,7 @@ export interface usePathtracedFramesProps {
   samples: number
   frames: number
   enabled: boolean
-  onFrame: (rootState: RootState, renderer: PathTracingRenderer) => void
+  onFrame: (rootState: RootState, renderer: PathTracingRenderer, dt: number) => void
   onEnd: (rootState: RootState, renderer: PathTracingRenderer) => void
   onStart: (rootState: RootState, renderer: PathTracingRenderer) => void
 }

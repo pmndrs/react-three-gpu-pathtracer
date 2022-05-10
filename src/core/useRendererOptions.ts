@@ -17,6 +17,7 @@ export default function useRendererOptions(
         : new THREE.Vector2(tiles, tiles)
 
     api.renderer.tiles.copy(t)
+    api.renderer.reset()
   }, [tiles])
 
   React.useLayoutEffect(() => {
