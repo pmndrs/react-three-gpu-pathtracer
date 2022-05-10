@@ -68,7 +68,7 @@ export default function Controls() {
         value: 'apartment',
       },
       Environment_Intensity: {
-        value: 3,
+        value: 5.5,
         max: 10,
         min: 0,
         step: 0.01,
