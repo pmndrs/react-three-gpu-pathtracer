@@ -116,7 +116,6 @@ export default function App() {
   return (
     <>
       <Leva
-        hidden
         collapsed
         titleBar={{
           title: 'Options',
@@ -152,12 +151,12 @@ export default function App() {
           </Pathtracer>
         </Suspense>
       </Canvas>
-      {/* <Stats />
+      <Stats />
       <Tag />
       <div className="info" ref={infoRef}>
         <p>0 frames</p>
         <p>0 samples</p>
-      </div> */}
+      </div>
     </>
   )
 }

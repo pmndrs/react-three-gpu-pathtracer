@@ -31,17 +31,33 @@ export default function Tag() {
           fontSize: '14px',
         }}
       >
-        <a target="_blank" rel="noopener" href="https://github.com/pmndrs/react-three-gpu-pathtracer">
-          @react-three/gpu-pathtracer
-        </a>{' '}
-        is a React port of{' '}
-        <a target="_blank" rel="noopener" href="https://github.com/gkjohnson/three-gpu-pathtracer">
-          three-gpu-pathtracer
-        </a>{' '}
-        by{' '}
-        <a target="_blank" rel="noopener" href="https://twitter.com/garrettkjohnson">
-          Garrett Johnson
-        </a>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <span>
+            3D model by KuayArts <a href="https://twitter.com/kuayarts">(@kuayarts)</a>{' '}
+            <a hef="https://sketchfab.com/3d-models/mr-mime-in-the-box-practical-joke-9636a92b36e2498b8839298896fb338d">
+              on Sketchfab
+            </a>
+            .
+          </span>
+          <span>
+            <a target="_blank" rel="noopener" href="https://github.com/pmndrs/react-three-gpu-pathtracer">
+              @react-three/gpu-pathtracer
+            </a>{' '}
+            is a React port of{' '}
+            <a target="_blank" rel="noopener" href="https://github.com/gkjohnson/three-gpu-pathtracer">
+              three-gpu-pathtracer
+            </a>{' '}
+            by{' '}
+            <a target="_blank" rel="noopener" href="https://twitter.com/garrettkjohnson">
+              Garrett Johnson
+            </a>
+          </span>
+        </div>
       </span>
     </div>
   )
