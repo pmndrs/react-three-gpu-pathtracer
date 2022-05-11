@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.1",
   "description": "⚡️ A React abstraction for the popular three-gpu-pathtracer.",
-  "type": "module",
   "main": "./index.cjs",
   "module": "./index.js",
   "types": "./index.d.ts",

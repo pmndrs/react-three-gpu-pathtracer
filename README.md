@@ -6,11 +6,11 @@
 <br>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/lamina" target="_blank">
-    <img src="https://img.shields.io/npm/v/lamina.svg?style=flat&colorA=000000&colorB=000000" />
+  <a href="https://www.npmjs.com/package/@react-three/gpu-pathtracer" target="_blank">
+    <img src="https://img.shields.io/npm/v/@react-three/gpu-pathtracer.svg?style=flat&colorA=000000&colorB=000000" />
   </a>
-  <a href="https://www.npmjs.com/package/lamina" target="_blank">
-    <img src="https://img.shields.io/npm/dm/lamina.svg?style=flat&colorA=000000&colorB=000000" />
+  <a href="https://www.npmjs.com/package/@react-three/gpu-pathtracer" target="_blank">
+    <img src="https://img.shields.io/npm/dm/@react-three/gpu-pathtracer.svg?style=flat&colorA=000000&colorB=000000" />
   </a>
   <a href="https://twitter.com/pmndrs" target="_blank">
     <img src="https://img.shields.io/twitter/follow/pmndrs?label=%40pmndrs&style=flat&colorA=000000&colorB=000000&logo=twitter&logoColor=000000" alt="Chat on Twitter">
@@ -23,10 +23,10 @@
 <br />
 
 <p align="center">
-  <a href="" target="_blank"><img  src="https://raw.githubusercontent.com/pmndrs/react-three-gpu-pathtracer/main/examples/basic/thumbnail.png?token=GHSAT0AAAAAABMXHW7LKAF66AXOEZ5NWTM4YT3Y33Q"  /></a>
+  <a href="https://codesandbox.io/embed/github/pmndrs/react-three-gpu-pathtracer/tree/main/examples/basic" target="_blank"><img  src="https://raw.githubusercontent.com/pmndrs/react-three-gpu-pathtracer/main/examples/basic/thumbnail.png?token=GHSAT0AAAAAABMXHW7LKAF66AXOEZ5NWTM4YT3Y33Q"  /></a>
 </p>
 <p align="middle">
-  <i>These demos are real, you can click them! They contain the full code, too. 📦</i> More examples <a href="./examples">here</a>
+  <i>This demo is real, you can click it! It contains full code, too. 📦</i> More examples <a href="./examples">here</a>
 </p>
 <p align="middle">
   3D model by KuayArts (@kuayarts) <a href="https://sketchfab.com/3d-models/mr-mime-in-the-box-practical-joke-9636a92b36e2498b8839298896fb338d">on Sketchfab</a>.

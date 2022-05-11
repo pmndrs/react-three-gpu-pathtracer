@@ -1012,17 +1012,17 @@
   integrity sha512-GryiOJmNcWbovBxTfZSF71V/mXbgcV3MewDe3kIMCLyIh5e7SKAeUZs+rMnJ8jkMolZ/4/VsdBmMrw3l+VdZ3w==
 
 "@jridgewell/trace-mapping@^0.3.9":
-  version "0.3.10"
-  resolved "https://registry.yarnpkg.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.10.tgz#db436f0917d655393851bc258918c00226c9b183"
-  integrity sha512-Q0YbBd6OTsXm8Y21+YUSDXupHnodNC2M4O18jtd3iwJ3+vMZNdKGols0a9G6JOK0dcJ3IdUUHoh908ZI6qhk8Q==
+  version "0.3.12"
+  resolved "https://registry.yarnpkg.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.12.tgz#ccd8cd83ad894bae98a79eecd6a885b211bfe217"
+  integrity sha512-6GMdw8fZlZjs9CJONrWeWyjl8zYqbyOMSxS9FABnEw3i+wz99SESjWMWRRIsbIp8HVsMeXggi5b7+a9qO6W1fQ==
   dependencies:
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
 "@react-three/fiber@^8.0.13":
-  version "8.0.13"
-  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-8.0.13.tgz#c4fc57075147ddabe1299034c2fa6a049cc7492d"
-  integrity sha512-hJdVS2F8LJFenR07l80JnkLAMeJ7gf3wiB8OzQ49GjSwjPgPG8bjYumMmchY/eouU+myYtNej0tK6mV6wctmdQ==
+  version "8.0.14"
+  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-8.0.14.tgz#c6026d2a80cf638a8fbe917ccbdbfa2b723e458d"
+  integrity sha512-foDw8Evl0mMMS2NQasN/omOjKqklAUGnAxFM1I3BpMaDVTUJdEakMcW3eMnYknr5qMBh6QFVV5OuMoRehILXYw==
   dependencies:
     "@babel/runtime" "^7.17.8"
     "@types/react-reconciler" "^0.26.6"
@@ -1095,9 +1095,9 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/node@*":
-  version "17.0.31"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.31.tgz#a5bb84ecfa27eec5e1c802c6bbf8139bdb163a5d"
-  integrity sha512-AR0x5HbXGqkEx9CadRH3EBYx/VkiUgZIhP4wvPn/+5KIsgpNoyFaRlVe0Zlx9gRtg8fA06a9tskE2MSN7TcG4Q==
+  version "17.0.32"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.32.tgz#51d59d7a90ef2d0ae961791e0900cad2393a0149"
+  integrity sha512-eAIcfAvhf/BkHcf4pkLJ7ECpBAhh9kcxRBpip9cTiO+hf+aJrsxYxBeS6OXvOd9WqNAJmavXVpZvY1rBjNsXmw==
 
 "@types/prop-types@*":
   version "15.7.5"
