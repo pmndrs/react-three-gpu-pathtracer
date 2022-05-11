@@ -1,17 +1,14 @@
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, Sphere } from '@react-three/drei'
-import { Pathtracer, usePathtracer, usePathtracedFrames } from '@react-three/gpu-pathtracer'
+import { Environment, OrbitControls, Stats, Bounds, useTexture, Circle } from '@react-three/drei'
 import { Suspense, useLayoutEffect, useRef, useState } from 'react'
-import { OrbitControls } from '@react-three/drei'
-import CanvasCapture from 'canvas-capture'
-import { Stats } from '@react-three/drei'
-import Model from './Model'
-import { Bounds } from '@react-three/drei'
-import { useTexture } from '@react-three/drei'
 import { button, folder, Leva, useControls } from 'leva'
-import { Circle } from '@react-three/drei'
+import CanvasCapture from 'canvas-capture'
+
+import { Pathtracer, usePathtracer, usePathtracedFrames } from '@react-three/gpu-pathtracer'
+
 import Controls from './Controls'
 import Tag from './Tag'
+import Model from './Model'
 
 function Floor() {
   const [aoMap, diffMap, norMap, roughMap] = useTexture([
