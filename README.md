@@ -23,7 +23,7 @@
 <br />
 
 <p align="center">
-  <a href="" target="_blank"><img width="400" src=""  /></a>
+  <a href="" target="_blank"><img  src="https://raw.githubusercontent.com/pmndrs/react-three-gpu-pathtracer/main/examples/basic/thumbnail.png?token=GHSAT0AAAAAABMXHW7LKAF66AXOEZ5NWTM4YT3Y33Q"  /></a>
 </p>
 <p align="middle">
   <i>These demos are real, you can click them! They contain the full code, too. 📦</i> More examples <a href="./examples">here</a>

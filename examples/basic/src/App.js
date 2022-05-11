@@ -35,8 +35,10 @@ function Thing({ setEnabled, infoRef }) {
 
   useLayoutEffect(() => update(), [])
   useFrame(() => {
-    infoRef.current.children[0].textContent = `${renderer.__r3fState.frames} frames`
-    infoRef.current.children[1].textContent = `${renderer.__r3fState.samples} samples`
+    if (infoRef.current) {
+      infoRef.current.children[0].textContent = `${renderer.__r3fState.frames} frames`
+      infoRef.current.children[1].textContent = `${renderer.__r3fState.samples} samples`
+    }
   }, [])
   const [captureStarted, setCaptureStarted] = useState(false)
 
@@ -114,6 +116,7 @@ export default function App() {
   return (
     <>
       <Leva
+        hidden
         collapsed
         titleBar={{
           title: 'Options',
@@ -149,12 +152,12 @@ export default function App() {
           </Pathtracer>
         </Suspense>
       </Canvas>
-      <Stats />
+      {/* <Stats />
       <Tag />
       <div className="info" ref={infoRef}>
         <p>0 frames</p>
         <p>0 samples</p>
-      </div>
+      </div> */}
     </>
   )
 }
