@@ -1798,10 +1798,10 @@
     suspend-react "^0.0.8"
     zustand "^3.7.1"
 
-"@react-three/gpu-pathtracer@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@react-three/gpu-pathtracer/-/gpu-pathtracer-0.0.1.tgz#9d871a8dbe0897f88c1460940525fe1084efdb11"
-  integrity sha512-RXJGIOKN7GGZitYzgfYf/nsx3Sr/m8eXKQtWAqbhQpreB9Yp6T1Zuiq3ip+8/rU5292IL7ziat+61LP2WvtoFA==
+"@react-three/gpu-pathtracer@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@react-three/gpu-pathtracer/-/gpu-pathtracer-0.0.2.tgz#1ac9dc42b68c3aa880d43179c1662b0e5e9f1ba4"
+  integrity sha512-U4D1HE1tb4TBC6c+b+6Q+ZFjQEoAg5mysLAP0gIEtLP+gj9rIKejwMdkSIr9370Hzlk4vZglv2V2iF+zEZTRjQ==
   dependencies:
     three-gpu-pathtracer "^0.0.2"
 
