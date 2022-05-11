@@ -31,7 +31,7 @@ export function usePathtracedFrames({
   )
 
   const start = React.useCallback(() => {
-    renderer.__r3fState.frame.count = 0
+    renderer.__r3fState.frames = 0
     renderer.__r3fState.initialized = false
     frame.current = 0
     onStart?.(get(), renderer)
