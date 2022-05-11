@@ -1,11 +1,11 @@
 <br />
 
-<h1>react-three-gpu-pathtracer</h1>
-<h3>⚡️ A React abstraction for the popular <a href="https://github.com/gkjohnson/three-gpu-pathtracer">three-gpu-pathtracer</a></h3>
+<h1 align="center">react-three-gpu-pathtracer</h1>
+<h3 align="center">⚡️ A React abstraction for the popular <a href="https://github.com/gkjohnson/three-gpu-pathtracer">three-gpu-pathtracer</a></h3>
 
 <br>
 
-<p>
+<p align="center">
   <a href="https://www.npmjs.com/package/lamina" target="_blank">
     <img src="https://img.shields.io/npm/v/lamina.svg?style=flat&colorA=000000&colorB=000000" />
   </a>
