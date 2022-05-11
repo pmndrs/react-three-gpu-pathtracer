@@ -75,7 +75,7 @@ function Thing({ setEnabled, infoRef }) {
       CanvasCapture.beginVideoRecord({ format: CanvasCapture.WEBM, name: 'vid', fps: 60 })
     },
     onFrame: (_, renderer, dt) => {
-      console.log(`Rendered frame ${renderer.__r3fState.frameCount} in ${dt * 100}ms:`)
+      console.log(`Rendered frame ${renderer.__r3fState.frames} in ${dt * 100}ms:`)
       CanvasCapture.recordFrame()
     },
     onEnd: () => {
