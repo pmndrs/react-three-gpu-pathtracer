@@ -25,10 +25,8 @@ export function API(): PathtracerAPI {
 
     ptRenderer.__r3fState = {
       initialized: false,
-      frame: {
-        count: 0,
-        delta: 0,
-      },
+      frames: 0,
+      samples: 0,
     }
 
     const fsQuad = new FullScreenQuad(
@@ -42,6 +40,9 @@ export function API(): PathtracerAPI {
   }, [])
 
   const refit = React.useCallback(() => {
+    ptRenderer.__r3fState.frames = 0
+    ptRenderer.__r3fState.samples = 0
+
     ptRenderer.reset()
     scene.updateMatrixWorld()
 
@@ -68,8 +69,10 @@ export function API(): PathtracerAPI {
     render: (samples: number = 3, paused: boolean = false) => {
       camera.updateMatrixWorld()
 
+      ptRenderer.__r3fState.samples = 0
       if (!paused || ptRenderer.samples < 1) {
         for (let i = 0; i < samples; i++) {
+          ptRenderer.__r3fState.samples++
           ptRenderer.update()
         }
       }
@@ -79,6 +82,8 @@ export function API(): PathtracerAPI {
       gl.autoClear = true
     },
     clear: () => {
+      ptRenderer.__r3fState.frames = 0
+      ptRenderer.__r3fState.samples = 0
       ptRenderer.reset()
     },
     refit,

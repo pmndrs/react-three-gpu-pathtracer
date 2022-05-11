@@ -5,7 +5,7 @@ import { usePathtracedFramesProps } from './types'
 
 export function usePathtracedFrames({
   samples = 3,
-  frames = 0,
+  frames = 1,
   onFrame,
   onEnd,
   onStart,
@@ -20,7 +20,7 @@ export function usePathtracedFrames({
   useFrame(
     (gl, dt) => {
       if (enabledRef.current && frame.current < frames) {
-        renderer.__r3fState.frame.count = frame.current
+        renderer.__r3fState.frames = frame.current
         frame.current++
 
         render(samples)

@@ -68,3 +68,18 @@ a {
 /* .copy span a svg {
   margin-right: 16px;
 } */
+
+.info {
+  position: absolute;
+  top: 0;
+  left: 80px;
+
+  padding: 16px;
+
+  color: white;
+  font-family: monospace;
+}
+
+.info p {
+  margin: 0;
+}

@@ -1,7 +1,7 @@
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { Environment, Sphere } from '@react-three/drei'
 import { Pathtracer, usePathtracer, usePathtracedFrames } from '@react-three/gpu-pathtracer'
-import { Suspense, useLayoutEffect, useState } from 'react'
+import { Suspense, useLayoutEffect, useRef, useState } from 'react'
 import { OrbitControls } from '@react-three/drei'
 import CanvasCapture from 'canvas-capture'
 import { Stats } from '@react-three/drei'
@@ -30,10 +30,14 @@ function Floor() {
   )
 }
 
-function Thing({ setEnabled }) {
-  const { clear, update } = usePathtracer()
+function Thing({ setEnabled, infoRef }) {
+  const { clear, update, renderer } = usePathtracer()
 
   useLayoutEffect(() => update(), [])
+  useFrame(() => {
+    infoRef.current.children[0].textContent = `${renderer.__r3fState.frames} frames`
+    infoRef.current.children[1].textContent = `${renderer.__r3fState.samples} samples`
+  }, [])
   const [captureStarted, setCaptureStarted] = useState(false)
 
   const opts = useControls(
@@ -46,6 +50,9 @@ function Thing({ setEnabled }) {
         Samples: {
           value: 3,
           step: 1,
+        },
+        'Auto Rotate': {
+          value: false,
         },
         [captureStarted ? 'Stop' : 'Start']: button(() => {
           if (!captureStarted) {
@@ -69,7 +76,7 @@ function Thing({ setEnabled }) {
       CanvasCapture.beginVideoRecord({ format: CanvasCapture.WEBM, name: 'vid', fps: 60 })
     },
     onFrame: (_, renderer, dt) => {
-      console.log(`Rendered frame ${renderer.__r3fState.frame.count} in ${dt * 100}ms:`)
+      console.log(`Rendered frame ${renderer.__r3fState.frameCount} in ${dt * 100}ms:`)
       CanvasCapture.recordFrame()
     },
     onEnd: () => {
@@ -80,6 +87,7 @@ function Thing({ setEnabled }) {
   return (
     <>
       <OrbitControls
+        autoRotate={opts['Auto Rotate']}
         autoRotateSpeed={2}
         onEnd={() => setEnabled(true)}
         onStart={() => setEnabled(false)}
@@ -101,6 +109,7 @@ export default function App() {
   const opts = Controls()
 
   const [enabled, setEnabled] = useState(true)
+  const infoRef = useRef()
 
   return (
     <>
@@ -136,12 +145,16 @@ export default function App() {
             tiles={[opts.Rendering_Tiles.x, opts.Rendering_Tiles.y]}
           >
             <Environment preset={opts.Environment_Preset} />
-            <Thing setEnabled={setEnabled} />
+            <Thing setEnabled={setEnabled} infoRef={infoRef} />
           </Pathtracer>
         </Suspense>
       </Canvas>
       <Stats />
       <Tag />
+      <div className="info" ref={infoRef}>
+        <p>0 frames</p>
+        <p>0 samples</p>
+      </div>
     </>
   )
 }

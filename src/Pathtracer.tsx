@@ -27,6 +27,8 @@ export function Pathtracer({
     type: 'Environment',
     blur: 0.5,
     intensity: 1,
+    top: '#444444',
+    bottom: '#000000',
     ...background,
   }
 
@@ -38,6 +40,7 @@ export function Pathtracer({
 
   React.useEffect(() => {
     api.update()
+    api.renderer.__r3fState.frames = 0
   }, [])
 
   React.useLayoutEffect(() => {
@@ -53,6 +56,7 @@ export function Pathtracer({
   useFrame(
     () => {
       if (api.renderer.__r3fState?.initialized && enabled) {
+        api.renderer.__r3fState.frames++
         api.render(samples, paused)
       }
     },
