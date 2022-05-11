@@ -28,6 +28,9 @@
 <p align="middle">
   <i>These demos are real, you can click them! They contain the full code, too. 📦</i> More examples <a href="./examples">here</a>
 </p>
+<p align="middle">
+  3D model by KuayArts (@kuayarts) <a href="https://sketchfab.com/3d-models/mr-mime-in-the-box-practical-joke-9636a92b36e2498b8839298896fb338d">on Sketchfab</a>.
+</p>
 <br />
 
 `react-three-gpu-pathtracer` lets you render your `react-three-fiber` scenes using Path Tracing! It is as simple as
