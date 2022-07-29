@@ -22,6 +22,8 @@ export function API(): PathtracerAPI {
     const generator = new DynamicPathTracingSceneGenerator(scene)
     ptRenderer.camera = camera
     ptRenderer.material = ptMaterial
+    ptRenderer.alpha = true;
+    ptRenderer.material.setDefine("FEATURE_MIS", 4);
 
     ptRenderer.__r3fState = {
       initialized: false,
@@ -32,7 +34,7 @@ export function API(): PathtracerAPI {
     const fsQuad = new FullScreenQuad(
       new THREE.MeshBasicMaterial({
         map: ptRenderer.target.texture,
-        transparent: true,
+        blending: THREE.CustomBlending,
       })
     )
 
@@ -61,7 +63,6 @@ export function API(): PathtracerAPI {
     ptMaterial.textures.setTextures(gl, 2048, 2048, textures)
     ptMaterial.materials.updateFrom(materials, textures)
 
-    ptRenderer.material.setDefine('MATERIAL_LENGTH', materials.length)
     ptRenderer.__r3fState.initialized = true
   }, [])
 

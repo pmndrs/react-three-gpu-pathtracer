@@ -1,4 +1,4 @@
-rm -rf ./node_modeules ./yarn.lock
+rm -rf ./node_modules ./yarn.lock
 yarn
 
 cd dist
@@ -17,7 +17,7 @@ cd ../../../
 
 for d in ./examples/* ; do
     cd $d
-    rm -rf ./node_modeules ./yarn.lock
+    rm -rf ./node_modules ./yarn.lock
     yarn
 
     yarn link @react-three/gpu-pathtracer
