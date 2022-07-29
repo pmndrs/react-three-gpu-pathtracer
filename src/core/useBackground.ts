@@ -35,7 +35,7 @@ export default function useBackground(api: PathtracerAPI, background: Partial<Pa
       pmremGenerator.compileCubemapShader()
 
       const envMap = pmremGenerator.fromEquirectangular(scene.environment)
-      api.renderer.material.environmentMap = envMap.texture
+      api.renderer.material.envMapInfo.updateFrom(scene.environment)
     }
   }, [scene.environment])
 }

@@ -50,7 +50,7 @@ export function Pathtracer({
     const dpr = viewport.dpr
 
     api.renderer.reset()
-    api.renderer.target.setSize(w * scale * dpr, h * scale * dpr)
+    api.renderer.setSize(w * scale * dpr, h * scale * dpr)
   }, [viewport, size, resolutionScale])
 
   useFrame(

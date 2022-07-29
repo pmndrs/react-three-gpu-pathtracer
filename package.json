@@ -67,15 +67,15 @@
     "rollup": "^2.70.2",
     "rollup-plugin-size-snapshot": "^0.12.0",
     "rollup-plugin-terser": "^7.0.2",
-    "three": "^0.140.0",
+    "three": "^0.141.0",
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "three-gpu-pathtracer": "^0.0.2"
+    "three-gpu-pathtracer": "^0.0.5"
   },
   "peerDependencies": {
     "@react-three/fiber": ">=8.0",
     "react": ">=18.0",
-    "three": ">=0.138"
+    "three": ">=0.141.0"
   }
 }
