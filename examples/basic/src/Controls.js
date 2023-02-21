@@ -4,15 +4,15 @@ import { folder, useControls } from 'leva'
 export default function Controls() {
   return useControls({
     Rendering: folder({
-      Rendering_Scale: {
-        value: 0.5,
+      Rendering_Factor: {
+        value: 1,
         max: 1,
         min: 0,
         step: 0.01,
-        label: 'Resolution Scale',
+        label: 'Resolution Factor',
       },
       Rendering_Samples: {
-        value: 3,
+        value: 2,
         max: 20,
         min: 1,
         step: 1,
@@ -27,8 +27,8 @@ export default function Controls() {
       },
       Rendering_Tiles: {
         value: {
-          x: 1,
-          y: 1,
+          x: 2,
+          y: 2,
         },
         max: 20,
         min: 1,
@@ -40,35 +40,19 @@ export default function Controls() {
         value: true,
         label: 'Enabled',
       },
-      Rendering_Paused: {
-        value: false,
-        label: 'Paused',
-      },
-    }),
-    Background: folder({
-      Background_Type: {
-        options: ['Environment', 'Gradient'],
-        value: 'Gradient',
-        label: 'Type',
-      },
-    }),
-    Gradient: folder({
-      Gradient_ColorTop: {
-        value: '#8a5004',
-        label: 'Color Top',
-      },
-      Gradient_ColorBottom: {
-        value: '#000000',
-        label: 'Color Bottom',
-      },
     }),
     Environment: folder({
+      Environment_Visible: {
+        value: false,
+        label: 'Enabled',
+      },
       Environment_Preset: {
         options: Object.keys(presetsObj),
         value: 'apartment',
+        label: 'Preset',
       },
       Environment_Intensity: {
-        value: 5.5,
+        value: 1,
         max: 10,
         min: 0,
         step: 0.01,

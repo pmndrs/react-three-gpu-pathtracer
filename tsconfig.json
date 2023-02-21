@@ -3,16 +3,15 @@
     "module": "esnext",
     "target": "es2018",
     "allowSyntheticDefaultImports": true,
-    "lib": ["ESNext", "dom"],
     "jsx": "react",
     "strict": true,
     "preserveSymlinks": true,
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "declaration": true,
-    "declarationDir": "dist",
     "skipLibCheck": true,
     "removeComments": false
   },
-  "include": ["src/**/*"]
+  "include": ["package/src/**/*"],
+  "exclude": ["node_modules", "package/dist/**/*"]
 }
