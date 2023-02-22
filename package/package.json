@@ -1,6 +1,6 @@
 {
   "name": "@react-three/gpu-pathtracer",
-  "private": true,
+  "private": false,
   "version": "0.1.0",
   "description": "⚡️ A React abstraction for the popular three-gpu-pathtracer.",
   "main": "dist/react-three-gpu-pathtracer.cjs.js",
