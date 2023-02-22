@@ -51,17 +51,17 @@ The `<Pathtracer />` component wraps your scene. The scene is then rendered usin
 
 #### Props
 
-| Prop                  | Type              | Default       | Description                                                                                                                                         |
-| --------------------- | ----------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | --- | -------------------------------------------------------------------------------------------------------------------- |
-| `alpha`               | `number`          | `1`           | Alpha of the scene background. Must be set to `<1` to see behind the canvas. Two extra render targets are used if `<1`.                             |
-| `samples`             | `number`          | `1`           | Number of samples per-frame                                                                                                                         |
-| `frames`              | `number`          | `Infinity`    | Number of frames to path trace. Will pause rendering once this number is reached.                                                                   |
-| `tiles`               | `[number, number] | THREE.Vector2 | { x: number; y: number }                                                                                                                            | number` | `2` | Number of tiles. Can be used to improve the responsiveness of a page while still rendering a high resolution target. |
-| `bounces`             | `number`          | `1`           | The number of ray bounces to test. Higher is better quality but slower performance.                                                                 |
-| `enabled`             | `boolean`         | `true`        | Wether to enable pathtracing.                                                                                                                       |
-| `resolutionFactor`    | `number`          | `1`           | Scaling factor for resolution.`0.5` means the scene will be rendered at half of screen resolution. Higher is better quality but slower performance. |
-| `backgroundBlur`      | `number`          | `0`           | Strength of blur on background env map.                                                                                                             |
-| `backgroundIntensity` | `number`          | `1`           | Strength of the light cast by the env map.                                                                                                          |
+| Prop                  | Type                                                                   | Default    | Description                                                                                                                                         |
+| --------------------- | ---------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `alpha`               | `number`                                                               | `1`        | Alpha of the scene background. Must be set to `<1` to see behind the canvas. Two extra render targets are used if `<1`.                             |
+| `samples`             | `number`                                                               | `1`        | Number of samples per-frame                                                                                                                         |
+| `frames`              | `number`                                                               | `Infinity` | Number of frames to path trace. Will pause rendering once this number is reached.                                                                   |
+| `tiles`               | `[number, number] / THREE.Vector2 / { x: number; y: number } / number` | `2`        | Number of tiles. Can be used to improve the responsiveness of a page while still rendering a high resolution target.                                |
+| `bounces`             | `number`                                                               | `1`        | The number of ray bounces to test. Higher is better quality but slower performance.                                                                 |
+| `enabled`             | `boolean`                                                              | `true`     | Wether to enable pathtracing.                                                                                                                       |
+| `resolutionFactor`    | `number`                                                               | `1`        | Scaling factor for resolution.`0.5` means the scene will be rendered at half of screen resolution. Higher is better quality but slower performance. |
+| `backgroundBlur`      | `number`                                                               | `0`        | Strength of blur on background env map.                                                                                                             |
+| `backgroundIntensity` | `number`                                                               | `1`        | Strength of the light cast by the env map.                                                                                                          |
 
 ### Backgrounds
 
