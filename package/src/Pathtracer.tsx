@@ -1,7 +1,6 @@
 import React from 'react'
 import * as THREE from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
-import { FullScreenQuad } from 'three/examples/jsm/postprocessing/Pass'
 import {
   PathTracingSceneGenerator,
   PathTracingRenderer,
@@ -9,6 +8,7 @@ import {
   GradientEquirectTexture,
   EquirectHdrInfoUniform,
 } from 'three-gpu-pathtracer'
+import { FullScreenQuad } from './Pass'
 
 type TilesType = [number, number] | THREE.Vector2 | { x: number; y: number } | number
 
@@ -158,6 +158,7 @@ export function Pathtracer({
   )
 
   React.useEffect(() => {
+    scene.updateMatrixWorld()
     api.update()
     api.reset()
   }, [])

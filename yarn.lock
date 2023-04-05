@@ -9993,7 +9993,7 @@ three-mesh-bvh@^0.5.19, three-mesh-bvh@^0.5.23:
 
 three-stdlib@^2.21.8:
   version "2.21.8"
-  resolved "https://registry.npmjs.org/three-stdlib/-/three-stdlib-2.21.8.tgz"
+  resolved "https://registry.yarnpkg.com/three-stdlib/-/three-stdlib-2.21.8.tgz#37b11b7f62d07b10742c212153b14db21433b3c6"
   integrity sha512-kqisiKvO4mSy59v5vWqBQSH8famLxp7Z51LxpMJI9GwDxqODaW02rhIwmjYDEzZWNFpjZpoDHVGbdpeHf8h3SA==
   dependencies:
     "@babel/runtime" "^7.16.7"
