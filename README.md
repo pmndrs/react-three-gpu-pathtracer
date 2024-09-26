@@ -51,29 +51,28 @@ The `<Pathtracer />` component wraps your scene. The scene is then rendered usin
 
 #### Props
 
-| Prop                  | Type                                                                   | Default    | Description                                                                                                                                         |
-| --------------------- | ---------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `alpha`               | `number`                                                               | `1`        | Alpha of the scene background. Must be set to `<1` to see behind the canvas. Two extra render targets are used if `<1`.                             |
-| `samples`             | `number`                                                               | `1`        | Number of samples per-frame                                                                                                                         |
-| `frames`              | `number`                                                               | `Infinity` | Number of frames to path trace. Will pause rendering once this number is reached.                                                                   |
-| `tiles`               | `[number, number] / THREE.Vector2 / { x: number; y: number } / number` | `2`        | Number of tiles. Can be used to improve the responsiveness of a page while still rendering a high resolution target.                                |
-| `bounces`             | `number`                                                               | `1`        | The number of ray bounces to test. Higher is better quality but slower performance.                                                                 |
-| `enabled`             | `boolean`                                                              | `true`     | Wether to enable pathtracing.                                                                                                                       |
-| `resolutionFactor`    | `number`                                                               | `1`        | Scaling factor for resolution.`0.5` means the scene will be rendered at half of screen resolution. Higher is better quality but slower performance. |
-| `backgroundBlur`      | `number`                                                               | `0`        | Strength of blur on background env map.                                                                                                             |
-| `backgroundIntensity` | `number`                                                               | `1`        | Strength of the light cast by the env map.                                                                                                          |
+| Prop         | Type                                                                   | Default    | Description                                                                                                          |
+| ------------ | ---------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------- |
+| `minSamples` | `number`                                                               | `1`        | Default: 5. Min number of samples before blending the base scene with the pathtraced one.                            |
+| `samples`    | `number`                                                               | `1`        | Max number of samples before the pathtracer stops.                                                                   |
+| `frames`     | `number`                                                               | `Infinity` | Number of frames to path trace. Will pause rendering once this number is reached.                                    |
+| `tiles`      | `[number, number] / THREE.Vector2 / { x: number; y: number } / number` | `2`        | Number of tiles. Can be used to improve the responsiveness of a page while still rendering a high resolution target. |
+| `bounces`    | `number`                                                               | `1`        | The number of ray bounces to test. Higher is better quality but slower performance.                                  |
+| `enabled`    | `boolean`                                                              | `true`     | Wether to enable pathtracing.                                                                                        |
 
 ### Backgrounds
 
 #### Env maps
 
-Env maps can be added using [Drei's `<Environment />`](https://github.com/pmndrs/drei#environment) component just like in a regular scene.
+Env maps can be added using [Drei's `<Environment />`](https://github.com/pmndrs/drei#environment) component just like in a regular scene. NOTE: In recent ThreeJS versions things like blur and intensity can be controlled directly from the scene or this component.
 
 ```jsx
 <Pathtracer>
   <Environment
     preset="..."
     background // Optional, set as scene background
+    backgroundBlurriness={0.5}
+    backgroundIntensity={1}
   />
 </Pathtracer>
 ```
@@ -96,8 +95,18 @@ This hook provides access to useful functions in the internal renderer. Can only
 const { renderer, update, reset } = usePathtracer()
 ```
 
-| Return value | Type                  | Description                                                                                              |
-| ------------ | --------------------- | -------------------------------------------------------------------------------------------------------- |
-| `renderer`   | `PathTracingRenderer` | Internal renderer. Can be used to access/edit internal properties                                        |
-| `reset`      | `() => void`          | Clear's the textures. Equiv to `renderer.reset()`. Must be called every time the camera moves.           |
-| `update`     | `() => void`          | Re-calculates and re-uploads BVH. Needed when new objects/materials are added to/removed from the scene. |
+| Return value   | Type              | Description                                                                                 |
+| -------------- | ----------------- | ------------------------------------------------------------------------------------------- |
+| `pathtracer`   | `WebGLPathTracer` | Internal renderer. Can be used to access/edit internal properties                           |
+| ~~`renderer`~~ | `WebGLPathTracer` | DEPRECIATED: use `pathtracer` to not get confused with raster renderer                      |
+| `reset`        | `() => void`      | Flushes the rendered scene and resets the samples count.                                    |
+| `update`       | `() => void`      | Tells the pathtracer that the scene has been updated. Everything is managed internally now. |
+
+### Note on controls
+
+When you set controls be sure to use `makeDefault` and it's best to import the `OrbitControls` [from drei](https://drei.docs.pmnd.rs/controls/introduction)
+
+```jsx
+<OrbitControls makeDefault>
+        // ...
+```
