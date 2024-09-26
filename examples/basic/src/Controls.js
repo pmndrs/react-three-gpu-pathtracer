@@ -12,9 +12,9 @@ export default function Controls() {
         label: 'Resolution Factor',
       },
       Rendering_Samples: {
-        value: 2,
-        max: 20,
-        min: 1,
+        value: 12,
+        max: 128,
+        min: 5,
         step: 1,
         label: 'Samples',
       },

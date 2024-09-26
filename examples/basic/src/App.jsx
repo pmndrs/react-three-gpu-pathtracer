@@ -1,8 +1,8 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Environment, OrbitControls, Stats, Bounds, useTexture, Circle, PerspectiveCamera } from '@react-three/drei'
-import { Suspense, useLayoutEffect, useRef, useState } from 'react'
+import { Suspense, useLayoutEffect, useRef, useState, useEffect } from 'react'
 import { button, folder, Leva, useControls } from 'leva'
-import { Pathtracer, usePathtracer, usePathtracedFrames } from '@react-three/gpu-pathtracer'
+import { Pathtracer, usePathtracer } from '@react-three/gpu-pathtracer'
 
 import Controls from './Controls'
 
@@ -28,12 +28,11 @@ function Floor() {
 }
 
 function UI({ infoRef }) {
-  const { renderer } = usePathtracer()
+  const { pathtracer } = usePathtracer()
 
   useFrame(() => {
-    if (infoRef.current) {
-      infoRef.current.children[0].textContent = `${renderer.frames} frames`
-      infoRef.current.children[1].textContent = `${renderer.samples} samples`
+    if (pathtracer && infoRef.current) {
+      infoRef.current.children[0].textContent = `${Math.ceil(pathtracer.samples)} samples`
     }
   }, [])
 
@@ -41,12 +40,18 @@ function UI({ infoRef }) {
 }
 
 function Thing() {
-  const { reset } = usePathtracer()
+  const { reset, update } = usePathtracer()
+  const opts = Controls()
+
+  // Trigger updates when envmap stuff changes
+  useEffect(() => {
+    update()
+  }, [opts.Environment_Visible, opts.Environment_Preset, opts.Environment_Intensity, opts.Environment_Blur])
 
   return (
     <>
-      <OrbitControls onChange={() => reset()} makeDefault />
-      <PerspectiveCamera position={[5, 4.5, -5]} fov={40} makeDefault />
+      <OrbitControls makeDefault />
+
       <group>
         <Bounds fit clip observe damping={6} margin={1.7}>
           <group position={[0.2, -1, 0]}>
@@ -73,8 +78,11 @@ export default function App() {
       />
       <Canvas
         gl={{
-          outputEncoding: sRGBEncoding,
           toneMapping: ACESFilmicToneMapping,
+        }}
+        camera={{
+          position: [5, 4.5, -5],
+          fov: 40,
         }}
       >
         {!opts.Environment_Visible && <color attach="background" args={['#ffdcb5']} />}
@@ -86,10 +94,13 @@ export default function App() {
             resolutionFactor={opts.Rendering_Factor}
             tiles={opts.Rendering_Tiles}
             enabled={opts.Rendering_Enabled}
-            backgroundIntensity={opts.Environment_Intensity}
-            backgroundBlur={opts.Environment_Blur}
           >
-            <Environment preset={opts.Environment_Preset} background={opts.Environment_Visible} />
+            <Environment
+              preset={opts.Environment_Preset}
+              background={opts.Environment_Visible}
+              backgroundBlurriness={opts.Environment_Blur}
+              backgroundIntensity={opts.Environment_Intensity}
+            />
             <Thing />
             <UI infoRef={infoRef} />
           </Pathtracer>
@@ -98,7 +109,6 @@ export default function App() {
       <Stats />
       <Tag />
       <div className="info" ref={infoRef}>
-        <p>0 frames</p>
         <p>0 samples</p>
       </div>
     </>

@@ -18,6 +18,13 @@ export default function Tag() {
               Faraz Shaikh
             </a>
           </span>
+          <br />
+          <span>
+            Updated by{' '}
+            <a target="_blank" rel="noopener" href="https://twitter.com/DennisSmolek">
+              Dennis Smolek
+            </a>
+          </span>
         </span>
 
         <span>
