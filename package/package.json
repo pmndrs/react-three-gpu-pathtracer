@@ -3,30 +3,23 @@
   "private": false,
   "version": "0.1.1",
   "description": "⚡️ A React abstraction for the popular three-gpu-pathtracer.",
-  "main": "dist/react-three-gpu-pathtracer.cjs.js",
-  "module": "dist/react-three-gpu-pathtracer.esm.js",
-  "types": "dist/react-three-gpu-pathtracer.cjs.d.ts",
+  "type": "module",
   "files": [
-    "dist/**",
-    "README.md",
-    "LICENSE.md",
-    "package.json"
+    "./**/*"
   ],
-  "preconstruct": {
-    "entrypoints": [
-      "index.ts"
-    ]
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pmndrs/react-three-gpu-path-tracing"
+    "url": "git+https://github.com/pmndrs/react-three-gpu-pathtracer"
   },
   "bugs": {
-    "url": "https://github.com/pmndrs/react-three-gpu-path-tracing/issues"
+    "url": "https://github.com/pmndrs/react-three-gpu-pathtracer/issues"
   },
-  "author": "Faraz Shaikh <farazzshaikh@gmail.com>",
+  "author": "Faraz Shaikh <farazzshaikh@gmail.com> (https://twitter.com/CantBeFaraz)",
+  "contributors": [
+    "Dennis Smolek <Dennis@smolek.dev> (https://twitter.com/DennisSmolek)"
+  ],
   "license": "MIT",
-  "homepage": "https://github.com/pmndrs/react-three-gpu-path-tracing#readme",
+  "homepage": "https://github.com/pmndrs/react-three-gpu-pathtracer",
   "keywords": [
     "react",
     "webgl",
@@ -36,21 +29,24 @@
     "pathtracing",
     "raytracing"
   ],
+  "main": "react-three-gpu-pathtracer.cjs.js",
+  "module": "react-three-gpu-pathtracer.es.js",
+  "types": "vanilla.d.ts",
   "scripts": {
-    "dev": "preconstruct watch",
-    "build": "preconstruct build"
+    "build": "tsc && vite build",
+    "release": "yarn build && cp ./package.json ./dist/package.json && cd ./dist && npm publish"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/preset-env": "^7.25.4",
-    "@babel/preset-react": "^7.24.7",
-    "@babel/preset-typescript": "^7.24.7",
-    "@react-three/fiber": "^8.17.8",
-    "@types/react": "^18.3.9",
+    "@types/node": "^22.7.4",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@types/three": "^0.168.0",
-    "react": "^18.3.1",
-    "three": "^0.168.0",
-    "typescript": "^5.6.2"
+    "@vitejs/plugin-react": "^4.3.1",
+    "globals": "^15.9.0",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.0.1",
+    "vite": "^5.4.1",
+    "vite-plugin-dts": "^4.2.1"
   },
   "peerDependencies": {
     "@react-three/fiber": ">=8.0",
