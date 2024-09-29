@@ -110,3 +110,26 @@ When you set controls be sure to use `makeDefault` and it's best to import the `
 <OrbitControls makeDefault>
         // ...
 ```
+
+### Development
+
+#### Dev
+
+```bash
+cd project-root
+yarn
+yarn dev
+```
+
+#### Build
+
+```bash
+yarn build
+```
+
+#### Publish
+
+```bash
+cd package
+npm run release
+```
