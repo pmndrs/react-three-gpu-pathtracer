@@ -44,8 +44,10 @@ function UI({ infoRef }) {
 
   useFrame(() => {
     if (pathtracer && infoRef.current) {
-      // @ts-ignore
-      infoRef.current.children[0].textContent = `Samples: ${Math.ceil(pathtracer.samples)}/${opts.Rendering_Samples}`;
+      infoRef.current.children[0].textContent = `Samples: ${Math.ceil(
+        // @ts-ignore
+        pathtracer.samples
+      )}/${opts.Rendering_Samples}`;
     }
   });
 
