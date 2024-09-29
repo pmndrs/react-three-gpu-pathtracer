@@ -1,1 +1,1 @@
-declare module 'three-gpu-pathtracer'
+declare module "three-gpu-pathtracer";

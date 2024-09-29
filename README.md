@@ -36,14 +36,14 @@
 `react-three-gpu-pathtracer` lets you render your `react-three-fiber` scenes using Path Tracing! It is as simple as
 
 ```jsx
-import { Pathtracer } from '@react-three/gpu-pathtracer'
+import { Pathtracer } from "@react-three/gpu-pathtracer";
 
 function GradientSphere() {
   return (
     <Canvas>
       <Pathtracer>{/* Your scene */}</Pathtracer>
     </Canvas>
-  )
+  );
 }
 ```
 
@@ -92,7 +92,7 @@ Or you can use a solid color as the background
 This hook provides access to useful functions in the internal renderer. Can only be used within the `<Pathtracer />` component.
 
 ```ts
-const { renderer, update, reset } = usePathtracer()
+const { renderer, update, reset } = usePathtracer();
 ```
 
 | Return value   | Type              | Description                                                                                 |

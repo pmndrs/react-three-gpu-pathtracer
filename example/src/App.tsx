@@ -6,28 +6,28 @@ import {
   OrbitControls,
   PerspectiveCamera,
   Stats,
-  useTexture,
-} from '@react-three/drei'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { Pathtracer, usePathtracer } from '@react-three/gpu-pathtracer'
-import { Leva } from 'leva'
-import { useEffect, useRef } from 'react'
+  useTexture
+} from "@react-three/drei";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Pathtracer, usePathtracer } from "@react-three/gpu-pathtracer";
+import { Leva } from "leva";
+import { useEffect, useRef } from "react";
 
-import Controls from './Controls'
+import Controls from "./Controls";
 
-import { ACESFilmicToneMapping, MathUtils } from 'three'
-import Model from './Model'
-import Tag from './Tag'
+import { ACESFilmicToneMapping, MathUtils } from "three";
+import Model from "./Model";
+import Tag from "./Tag";
 
-const baseURL = import.meta.env.BASE_URL
+const baseURL = import.meta.env.BASE_URL;
 
 function Floor() {
   const [aoMap, diffMap, norMap, roughMap] = useTexture([
-    baseURL + '/textures/wood_cabinet_worn_long_ao_2k.jpg',
-    baseURL + '/textures/wood_cabinet_worn_long_diff_2k.jpg',
-    baseURL + '/textures/wood_cabinet_worn_long_nor_gl_2k.jpg',
-    baseURL + '/textures/wood_cabinet_worn_long_rough_2k.jpg',
-  ])
+    baseURL + "/textures/wood_cabinet_worn_long_ao_2k.jpg",
+    baseURL + "/textures/wood_cabinet_worn_long_diff_2k.jpg",
+    baseURL + "/textures/wood_cabinet_worn_long_nor_gl_2k.jpg",
+    baseURL + "/textures/wood_cabinet_worn_long_rough_2k.jpg"
+  ]);
 
   return (
     <>
@@ -35,31 +35,36 @@ function Floor() {
         <meshPhysicalMaterial map={diffMap} aoMap={aoMap} roughness={0.2} />
       </Circle>
     </>
-  )
+  );
 }
 
 function UI({ infoRef }) {
-  const { pathtracer } = usePathtracer()
-  const opts = Controls()
+  const { pathtracer } = usePathtracer();
+  const opts = Controls();
 
   useFrame(() => {
     if (pathtracer && infoRef.current) {
       // @ts-ignore
-      infoRef.current.children[0].textContent = `Samples: ${Math.ceil(pathtracer.samples)}/${opts.Rendering_Samples}`
+      infoRef.current.children[0].textContent = `Samples: ${Math.ceil(pathtracer.samples)}/${opts.Rendering_Samples}`;
     }
-  })
+  });
 
-  return null
+  return null;
 }
 
 function Thing() {
-  const { reset, update } = usePathtracer()
-  const opts = Controls()
+  const { reset, update } = usePathtracer();
+  const opts = Controls();
 
   // Trigger updates when envmap stuff changes
   useEffect(() => {
-    update()
-  }, [opts.Environment_Visible, opts.Environment_Preset, opts.Environment_Intensity, opts.Environment_Blur])
+    update();
+  }, [
+    opts.Environment_Visible,
+    opts.Environment_Preset,
+    opts.Environment_Intensity,
+    opts.Environment_Blur
+  ]);
 
   return (
     <>
@@ -74,24 +79,24 @@ function Thing() {
         <Floor />
       </group>
     </>
-  )
+  );
 }
 
 export default function App() {
-  const infoRef = useRef()
-  const opts = Controls()
+  const infoRef = useRef();
+  const opts = Controls();
 
   return (
     <>
       <Leva
         collapsed
         titleBar={{
-          title: 'Options',
+          title: "Options"
         }}
       />
       <Canvas
         gl={{
-          toneMapping: ACESFilmicToneMapping,
+          toneMapping: ACESFilmicToneMapping
         }}
       >
         <PerspectiveCamera makeDefault position={[4, 2, -1]} fov={40} />
@@ -125,5 +130,5 @@ export default function App() {
       </div>
       <Tag />
     </>
-  )
+  );
 }
