@@ -55,18 +55,5 @@
   },
   "dependencies": {
     "three-gpu-pathtracer": "^0.0.23"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react",
-      [
-        "@babel/preset-typescript",
-        {
-          "isTSX": true,
-          "allExtensions": true
-        }
-      ]
-    ]
   }
 }
