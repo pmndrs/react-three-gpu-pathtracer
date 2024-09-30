@@ -1,132 +1,107 @@
-import { useFrame, useThree } from "@react-three/fiber";
-import React, { useMemo } from "react";
-import * as THREE from "three";
+import { applyProps, useFrame, useThree, Vector2 } from "@react-three/fiber";
+import React, {
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useState
+} from "react";
 import { WebGLPathTracer } from "three-gpu-pathtracer";
 
-type TilesType =
-  | [number, number]
-  | THREE.Vector2
-  | { x: number; y: number }
-  | number;
-
 interface PathtracerProps {
-  minSamples?: number;
-  samples?: number;
-  tiles?: TilesType;
+  maxSamples?: number;
+  renderPriority?: number;
   bounces?: number;
-  enabled?: boolean;
-  resolutionFactor?: number;
+  filteredGlossyFactor?: number;
+  renderDelay?: number;
+  fadeDuration?: number;
+  minSamples?: number;
+  dynamicLowRes?: boolean;
+  lowResScale?: number;
+  textureSize?: [number, number];
+  rasterizeScene?: boolean;
+  tiles?: Vector2;
 }
 
-interface PathtracerAPI {
-  update: () => void;
-  reset: () => void;
-  renderer: typeof WebGLPathTracer;
-  pathtracer: typeof WebGLPathTracer;
-}
-
-const context = React.createContext<PathtracerAPI>(null as any);
-
-//* Helper Function to convert TilesType to [number, number]
-function fiberVec2ToArr(vec: TilesType): [number, number] {
-  if (Array.isArray(vec)) return vec;
-  if (vec instanceof THREE.Vector2) return [vec.x, vec.y];
-  if (typeof vec === "number") return [vec, vec];
-  return [vec.x, vec.y];
-}
+const context = React.createContext<WebGLPathTracer>(null as any);
 
 export const Pathtracer = React.forwardRef<
-  InstanceType<typeof WebGLPathTracer>,
+  WebGLPathTracer,
   React.PropsWithChildren<PathtracerProps>
->(({ enabled = true, children, ...props }, ref) => {
-  // state objects
-  const { gl, size, viewport, camera, scene, controls } = useThree();
-
-  const pathtracer = useMemo(() => {
-    const pt = new WebGLPathTracer(gl);
-    pt.synchronizeRenderSize = true;
-    // This might not be needed as we arent using setSceneAsync
-    //pt.setBVHWorker(new ParallelMeshBVHWorker())
-    return pt;
-  }, [gl]);
-
-  // Expose the pathtracer instance via ref
-  React.useImperativeHandle(ref, () => pathtracer, [pathtracer]);
-
-  //* Single handler for all props
-  React.useEffect(() => {
-    const {
-      minSamples = 5,
-      tiles = 2,
+>(
+  (
+    {
+      children,
+      maxSamples = 32,
+      renderPriority = 1,
       bounces = 4,
-      resolutionFactor = 1
-    } = props;
+      filteredGlossyFactor = 0,
+      renderDelay = 0,
+      fadeDuration = 0,
+      minSamples = 1,
+      dynamicLowRes = true,
+      lowResScale = 0.25,
+      textureSize = [1024, 1024],
+      rasterizeScene = false,
+      tiles = [3, 3]
+    },
+    fref
+  ) => {
+    const gl = useThree((state) => state.gl);
+    const scene = useThree((state) => state.scene);
+    const camera = useThree((state) => state.camera);
+    const controls = useThree((state) => state.controls);
+    const size = useThree((state) => state.size);
+    const [pathTracer] = useState(() => new WebGLPathTracer(gl));
 
-    pathtracer.bounces = bounces;
-    pathtracer.minSamples = minSamples;
-    pathtracer.renderScale = resolutionFactor;
-    const t = fiberVec2ToArr(tiles);
-    pathtracer.tiles.set(t[0], t[1]);
-  }, [props, pathtracer]);
+    // Set up scene
+    useLayoutEffect(() => {
+      pathTracer.setScene(scene, camera);
+    }, [scene, camera]);
 
-  React.useEffect(() => {
-    if (enabled) pathtracer.reset();
-  }, [enabled]);
+    // Update config
+    useLayoutEffect(() => {
+      applyProps(pathTracer, {
+        bounces,
+        filteredGlossyFactor,
+        renderDelay,
+        fadeDuration,
+        minSamples,
+        dynamicLowRes,
+        lowResScale,
+        rasterizeScene,
+        textureSize,
+        tiles
+      });
+    });
 
-  const api = React.useMemo<PathtracerAPI>(
-    () => ({
-      /**
-       * Update the pathtracer scene. Call this after adding or removing objects from the scene
-       */
-      update: () => {
-        pathtracer.setScene(scene, camera);
-      },
-      /**
-       * Reset the pathtracer. Call this after changing any pathtracing properties
-       */
-      reset: () => {
-        pathtracer.reset();
-      },
-      /**
-       * @deprecated Use `pathtracer` instead
-       */
-      renderer: pathtracer,
-      pathtracer: pathtracer // Use this instead. Keeps base three renderer seperate mentally
-    }),
-    [pathtracer, scene, camera]
-  );
+    // Render samples
+    useFrame((state) => {
+      if (pathTracer.samples <= maxSamples) {
+        pathTracer.renderSample();
+      }
+    }, renderPriority);
 
-  //* Initialize the pathtracer
-  React.useEffect(() => {
-    // scene.updateMatrixWorld()
-    pathtracer.setScene(scene, camera);
-  }, [scene, camera]);
+    // Listen for changes
+    useEffect(() => {
+      if (controls) {
+        const fn = () => pathTracer.updateCamera();
+        // @ts-ignore
+        controls.addEventListener("change", fn);
+        // @ts-ignore
+        return () => controls.removeEventListener("change", fn);
+      }
+    }, [controls]);
 
-  // Bind control listeners
-  React.useEffect(() => {
-    // setup control listeners
+    // Configure size
+    useEffect(() => {
+      pathTracer.updateCamera();
+    }, [camera, size]);
 
-    const controlListener = () => {
-      pathtracer.updateCamera();
-    };
+    useImperativeHandle(fref, () => pathTracer, [pathTracer]);
 
-    // @ts-ignore
-    if (controls) controls.addEventListener("change", controlListener);
-
-    return () => {
-      // @ts-ignore
-      if (controls) controls.removeEventListener("change", controlListener);
-    };
-  }, [controls, pathtracer]);
-
-  useFrame(({ camera, gl, scene }) => {
-    if (enabled && pathtracer.samples < (props.samples ?? Infinity))
-      pathtracer.renderSample();
-    if (!enabled) gl.render(scene, camera);
-  }, 1);
-
-  return <context.Provider value={api}>{children}</context.Provider>;
-});
+    return <context.Provider value={pathTracer}>{children}</context.Provider>;
+  }
+);
 
 export function usePathtracer() {
   const ctx = React.useContext(context);
