@@ -31,7 +31,7 @@
   ],
   "main": "react-three-gpu-pathtracer.cjs.js",
   "module": "react-three-gpu-pathtracer.es.js",
-  "types": "vanilla.d.ts",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc && vite build",
     "release": "yarn build && cp ./package.json ./dist/package.json && cd ./dist && npm publish"
