@@ -1,34 +1,24 @@
 {
   "name": "@react-three/gpu-pathtracer-monorepo",
-  "private": true,
+  "description": "Monorepo for @react-three/gpu-pathtracer-monorepo and its examples",
   "version": "1.0.0",
-  "main": "index.js",
-  "author": "Faraz Shaikh <farazzshaikh@gmail.com>",
+  "private": true,
+  "repository": "https://github.com/pmndrs/react-three-gpu-pathtracer",
+  "author": "Faraz Shaikh <farazzshaikh@gmail.com> (https://twitter.com/CantBeFaraz)",
+  "contributors": [
+    "Dennis Smolek <Dennis@smolek.dev> (https://twitter.com/DennisSmolek)"
+  ],
   "license": "MIT",
-  "workspaces": {
-    "packages": [
-      "package",
-      "examples/*"
-    ]
-  },
-  "preconstruct": {
-    "packages": [
-      "package"
-    ]
-  },
+  "homepage": "https://github.com/pmndrs/react-three-gpu-pathtracer",
+  "workspaces": [
+    "package",
+    "example"
+  ],
   "scripts": {
-    "build": "preconstruct build",
-    "dev": "preconstruct dev && yarn workspace basic start",
-    "postinstall": "preconstruct dev && manypkg check",
-    "ci": "preconstruct validate && manypkg check && yarn build",
-    "clean": "rm -rf node_modules package/dist examples/*/node_modules"
-  },
-  "dependencies": {
-    "@changesets/cli": "^2.24.3",
-    "@manypkg/cli": "^0.19.1",
-    "@preconstruct/cli": "^2.1.5"
-  },
-  "stackblitz": {
-    "startCommand": "cd examples/waves && yarn start"
+    "build:package": "yarn --cwd package build",
+    "build": "yarn --cwd example build",
+    "preview": "yarn --cwd example preview",
+    "dev": "yarn --cwd example dev",
+    "release": "yarn --cwd package release"
   }
 }
