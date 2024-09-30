@@ -9,8 +9,8 @@ import {
 } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
-  AreaLight,
   Pathtracer,
+  SpotLight,
   usePathtracer
 } from "@react-three/gpu-pathtracer";
 
@@ -85,13 +85,7 @@ export default function App() {
         <Pathtracer>
           <Environment preset="apartment" />
 
-          <AreaLight
-            position={[0, 2, 0]}
-            rotation-x={-Math.PI / 2}
-            intensity={10}
-            width={2}
-            height={2}
-          />
+          <SpotLight position={[0, 2, 0]} intensity={10} radius={2} />
 
           <Suspense>
             <Thing />
