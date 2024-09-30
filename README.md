@@ -3,6 +3,28 @@
 <h1 align="center">react-three-gpu-pathtracer</h1>
 <h3 align="center">⚡️ A React abstraction for the popular <a href="https://github.com/gkjohnson/three-gpu-pathtracer">three-gpu-pathtracer</a></h3>
 
+<br />
+
+<p align="center">
+  <a href="https://codesandbox.io/p/devbox/lpwqxy" target="_blank"><img  src="https://github.com/pmndrs/react-three-gpu-pathtracer/blob/main/assets/hero-screenshot.png?raw=true"/></a>
+</p>
+<p align="middle">
+  <i>This demo is real, you can click it! It contains full code, too. 📦</i>
+</p>
+<p align="middle">
+GameBoy model by 
+<a href="https://sketchfab.com/kleingeo">(@kleingeo)</a>
+<a hef="https://sketchfab.com/3d-models/game-boy-classic-0ae80019e6f046168923286d7e628f6f">
+  on Sketchfab
+</a>
+. GameBoy Cartridge by 
+<a href="https://sketchfab.com/kleingeo">(@MeBob)</a>
+<a hef="https://sketchfab.com/3d-models/gameboy-cartridge-lowpoly-8b9728eab16c4056ac2636ae7f0f038f">
+  on Sketchfab
+</a>
+.
+</p>
+
 <br>
 
 <p align="center">
@@ -20,17 +42,6 @@
   </a>
 </p>
 
-<br />
-
-<p align="center">
-  <a href="https://codesandbox.io/embed/github/pmndrs/react-three-gpu-pathtracer/tree/main/examples/basic" target="_blank"><img  src="https://raw.githubusercontent.com/pmndrs/react-three-gpu-pathtracer/main/examples/basic/thumbnail.png?token=GHSAT0AAAAAABMXHW7LKAF66AXOEZ5NWTM4YT3Y33Q"  /></a>
-</p>
-<p align="middle">
-  <i>This demo is real, you can click it! It contains full code, too. 📦</i> More examples <a href="./examples">here</a>
-</p>
-<p align="middle">
-  3D model by KuayArts (@kuayarts) <a href="https://sketchfab.com/3d-models/mr-mime-in-the-box-practical-joke-9636a92b36e2498b8839298896fb338d">on Sketchfab</a>.
-</p>
 <br />
 
 `react-three-gpu-pathtracer` lets you render your `react-three-fiber` scenes using Path Tracing! It is as simple as
