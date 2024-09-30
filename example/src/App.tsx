@@ -48,6 +48,11 @@ function UI({ infoRef }) {
         // @ts-ignore
         pathtracer.samples
       )}/${opts.Rendering_Samples}`;
+
+      // @ts-ignore
+      infoRef.current.children[1].textContent = pathtracer.isCompiling
+        ? `Initializing...`
+        : "";
     }
   });
 
@@ -129,6 +134,7 @@ export default function App() {
       <Stats />
       <div className="info" ref={infoRef}>
         <p>Samples: 0</p>
+        <p>Initializing...</p>
       </div>
       <Tag />
     </>

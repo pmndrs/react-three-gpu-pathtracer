@@ -60,11 +60,9 @@ The `<Pathtracer />` component wraps your scene. The scene is then rendered usin
 | `bounces`    | `number`                                                               | `1`        | The number of ray bounces to test. Higher is better quality but slower performance.                                  |
 | `enabled`    | `boolean`                                                              | `true`     | Wether to enable pathtracing.                                                                                        |
 
-### Backgrounds
+### Env maps
 
-#### Env maps
-
-Env maps can be added using [Drei's `<Environment />`](https://github.com/pmndrs/drei#environment) component just like in a regular scene. NOTE: In recent ThreeJS versions things like blur and intensity can be controlled directly from the scene or this component.
+Env maps can be added using [Drei's `<Environment />`](https://github.com/pmndrs/drei#environment) component just like in a regular scene.
 
 ```jsx
 <Pathtracer>
@@ -75,16 +73,6 @@ Env maps can be added using [Drei's `<Environment />`](https://github.com/pmndrs
     backgroundIntensity={1}
   />
 </Pathtracer>
-```
-
-Or you can use a solid color as the background
-
-```jsx
-<Canvas>
-    <color args={[0xff0000]} attach="background" />
-
-    <Pathtracer>
-        // ...
 ```
 
 ### `usePathtracer`
