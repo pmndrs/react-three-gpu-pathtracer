@@ -1,4 +1,4 @@
-import { applyProps, useFrame, useThree, Vector2 } from "@react-three/fiber";
+import { applyProps, useFrame, useThree } from "@react-three/fiber";
 import React, {
   useEffect,
   useImperativeHandle,
@@ -7,19 +7,16 @@ import React, {
 } from "react";
 import { WebGLPathTracer } from "three-gpu-pathtracer";
 
-interface PathtracerProps {
+type NonFunctionPropertyNames<T> = {
+  [K in keyof T]: T[K] extends Function ? never : K;
+}[keyof T];
+type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
+
+interface PathtracerProps
+  extends Partial<NonFunctionProperties<WebGLPathTracer>> {
   maxSamples?: number;
   renderPriority?: number;
-  bounces?: number;
   filteredGlossyFactor?: number;
-  renderDelay?: number;
-  fadeDuration?: number;
-  minSamples?: number;
-  dynamicLowRes?: boolean;
-  lowResScale?: number;
-  textureSize?: [number, number];
-  rasterizeScene?: boolean;
-  tiles?: Vector2;
 }
 
 const context = React.createContext<WebGLPathTracer>(null as any);
