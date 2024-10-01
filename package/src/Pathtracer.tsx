@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useImperativeHandle,
   useLayoutEffect,
+  useMemo,
   useState
 } from "react";
 import { WebGLPathTracer } from "three-gpu-pathtracer";
@@ -12,14 +13,21 @@ type NonFunctionPropertyNames<T> = {
 }[keyof T];
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 
+interface PathtracerAPI extends WebGLPathTracer {
+  /**
+   * Wrapper around WebGLPathTracer.setScene()
+   */
+  update(): void;
+}
+
+const context = React.createContext<PathtracerAPI>(null as any);
+
 interface PathtracerProps
   extends Partial<NonFunctionProperties<WebGLPathTracer>> {
   maxSamples?: number;
   renderPriority?: number;
   filteredGlossyFactor?: number;
 }
-
-const context = React.createContext<WebGLPathTracer>(null as any);
 
 export const Pathtracer = React.forwardRef<
   WebGLPathTracer,
@@ -92,11 +100,17 @@ export const Pathtracer = React.forwardRef<
     // Configure size
     useEffect(() => {
       pathTracer.updateCamera();
-    }, [camera, size]);
+    }, [size]);
 
     useImperativeHandle(fref, () => pathTracer, [pathTracer]);
 
-    return <context.Provider value={pathTracer}>{children}</context.Provider>;
+    const value = useMemo(() => {
+      const extendedPathTracer = pathTracer as PathtracerAPI;
+      extendedPathTracer.update = () => pathTracer.setScene(scene, camera);
+      return extendedPathTracer;
+    }, [pathTracer, scene, camera]);
+
+    return <context.Provider value={value}>{children}</context.Provider>;
   }
 );
 
