@@ -11,7 +11,7 @@
   "tasks": {
     "dev": {
       "name": "dev",
-      "command": "rm -f vite.config.ts && cp csb.vite.config.ts vite.config.ts && yarn add @react-three/gpu-pathtracer && yarn dev",
+      "command": "rm -f vite.config.ts && cp csb.vite.config.js vite.config.ts && yarn add @react-three/gpu-pathtracer && yarn dev",
       "runAtStart": true,
       "preview": {
         "port": 5173
