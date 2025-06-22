@@ -113,7 +113,7 @@ export default function App() {
           samples={opts.Rendering_Samples}
           bounces={opts.Rendering_Bounces}
           resolutionFactor={opts.Rendering_Factor}
-          tiles={opts.Rendering_Tiles}
+          tiles={[opts.Rendering_Tiles.x, opts.Rendering_Tiles.y]}
           enabled={opts.Rendering_Enabled}
         >
           {opts.Environment_Visible ? (
