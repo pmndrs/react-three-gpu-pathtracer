@@ -1,6 +1,5 @@
 {
   "name": "@react-three/gpu-pathtracer",
-  "private": false,
   "version": "0.2.0",
   "description": "⚡️ A React abstraction for the popular three-gpu-pathtracer.",
   "type": "module",
@@ -40,9 +39,10 @@
     "@types/node": "^22.7.4",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@types/three": "^0.168.0",
+    "@types/three": "^0.177.0",
     "@vitejs/plugin-react": "^4.3.1",
     "globals": "^15.9.0",
+    "rollup-plugin-exclude-dependencies-from-bundle": "^1.1.24",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1",

@@ -1,6 +1,7 @@
 import react from "@vitejs/plugin-react";
 import fs from "fs/promises";
 import path from "path";
+import excludeDependenciesFromBundle from "rollup-plugin-exclude-dependencies-from-bundle";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
@@ -10,6 +11,7 @@ function copyFiles() {
     closeBundle: async () => {
       await fs.copyFile("../LICENSE.md", "./dist/LICENSE.md");
       await fs.copyFile("../README.md", "./dist/README.md");
+      await fs.copyFile("./package.json", "./dist/package.json");
     }
   };
 }
@@ -24,7 +26,14 @@ export default defineConfig({
       fileName: (format) => `react-three-gpu-pathtracer.${format}.js`
     },
     rollupOptions: {
-      external: ["react", "three", "@react-three/fiber"]
+      external: ["react", "three", "@react-three/fiber"],
+      plugins: [
+        // @ts-ignore
+        excludeDependenciesFromBundle({
+          dependencies: true,
+          peerDependencies: true
+        })
+      ]
     },
     sourcemap: true,
     emptyOutDir: true

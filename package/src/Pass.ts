@@ -1,9 +1,8 @@
 import {
+  Material,
+  Mesh,
   OrthographicCamera,
   PlaneGeometry,
-  Mesh,
-  Material,
-  Renderer,
   WebGLRenderer,
   WebGLRenderTarget
 } from "three";
@@ -63,9 +62,9 @@ class FullScreenQuad<TMaterial extends Material = Material> {
     this.mesh.geometry.dispose();
   }
 
-  public render(renderer: Renderer): void {
+  public render(renderer: WebGLRenderer): void {
     renderer.render(this.mesh, this.camera);
   }
 }
 
-export { Pass, FullScreenQuad };
+export { FullScreenQuad, Pass };

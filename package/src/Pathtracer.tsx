@@ -21,8 +21,8 @@ interface PathtracerProps {
 interface PathtracerAPI {
   update: () => void;
   reset: () => void;
-  renderer: typeof WebGLPathTracer;
-  pathtracer: typeof WebGLPathTracer;
+  renderer: WebGLPathTracer;
+  pathtracer: WebGLPathTracer;
 }
 
 const context = React.createContext<PathtracerAPI>(null as any);
@@ -40,7 +40,7 @@ export const Pathtracer = React.forwardRef<
   React.PropsWithChildren<PathtracerProps>
 >(({ enabled = true, children, ...props }, ref) => {
   // state objects
-  const { gl, size, viewport, camera, scene, controls } = useThree();
+  const { gl, camera, scene, controls } = useThree();
 
   const pathtracer = useMemo(() => {
     const pt = new WebGLPathTracer(gl);
