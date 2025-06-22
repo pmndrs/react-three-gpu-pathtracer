@@ -6,7 +6,7 @@
 <br />
 
 <p align="center">
-  <a href="https://codesandbox.io/p/devbox/lpwqxy" target="_blank"><img  src="https://github.com/pmndrs/react-three-gpu-pathtracer/blob/main/assets/hero-screenshot.png?raw=true"/></a>
+  <a href="https://codesandbox.io/embed/github/pmndrs/react-three-gpu-pathtracer/tree/main/example" target="_blank"><img  src="https://github.com/pmndrs/react-three-gpu-pathtracer/blob/main/assets/hero-screenshot.png?raw=true"/></a>
 </p>
 <p align="middle">
   <i>This demo is real, you can click it! It contains full code, too. 📦</i>
