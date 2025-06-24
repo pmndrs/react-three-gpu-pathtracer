@@ -16,6 +16,8 @@ type PathtracerProps = ElementProps<typeof WebGLPathTracer> & {
   bounces?: number;
   enabled?: boolean;
   resolutionFactor?: number;
+  renderPriority?: number;
+  filteredGlossyFactor?: number;
 };
 
 interface PathtracerAPI {
@@ -41,12 +43,21 @@ export const Pathtracer = React.forwardRef<
 >(
   (
     {
-      enabled = true,
       children,
+      enabled = true,
       minSamples = 1,
-      samples = 5,
-      bounces = 8,
+      samples = 32,
+      bounces = 4,
       resolutionFactor = 1,
+      renderPriority = 1,
+      filteredGlossyFactor = 0,
+      renderDelay = 0,
+      fadeDuration = 0,
+      dynamicLowRes = true,
+      lowResScale = 0.25,
+      textureSize = [1024, 1024],
+      rasterizeScene = false,
+      tiles = [3, 3],
       ...props
     },
     ref
@@ -66,12 +77,20 @@ export const Pathtracer = React.forwardRef<
     React.useImperativeHandle(ref, () => pathtracer, [pathtracer]);
 
     //* Single handler for all props
-    React.useEffect(() => {
-      // @ts-ignore
-      applyProps(pathtracer, props);
+    React.useLayoutEffect(() => {
+      applyProps(pathtracer, {
+        bounces,
+        filteredGlossyFactor,
+        renderDelay,
+        fadeDuration,
+        minSamples,
+        dynamicLowRes,
+        lowResScale,
+        rasterizeScene,
+        textureSize,
+        tiles
+      });
       pathtracer.renderScale = resolutionFactor;
-      pathtracer.bounces = bounces;
-      pathtracer.minSamples = minSamples;
       pathtracer.reset();
     }, [props, resolutionFactor, bounces, minSamples, pathtracer]);
 
@@ -103,13 +122,13 @@ export const Pathtracer = React.forwardRef<
     );
 
     //* Initialize the pathtracer
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
       // scene.updateMatrixWorld()
       pathtracer.setScene(scene, camera);
     }, [scene, camera]);
 
     // Bind control listeners
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
       // setup control listeners
 
       const controlListener = () => {
