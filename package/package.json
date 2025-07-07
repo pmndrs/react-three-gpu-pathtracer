@@ -1,6 +1,6 @@
 {
   "name": "@react-three/gpu-pathtracer",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "⚡️ A React abstraction for the popular three-gpu-pathtracer.",
   "type": "module",
   "files": [
